@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import logo from './logo.svg';
+import Landing from './components/Landing.jsx';
+import Results from './components/Results.jsx';
 import './styles/main.min.css';
 
 const FourOhFour = () => <h1>404</h1>;
@@ -10,9 +11,10 @@ const FourOhFour = () => <h1>404</h1>;
 const App = () => (
   <BrowserRouter>
     <Provider store={store}>
-      <div className="app">
-        <Switch />
-      </div>
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/result" component={Results} />
+      </Switch>
     </Provider>
   </BrowserRouter>
 );
