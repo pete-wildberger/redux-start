@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getApiDetails } from '../redux/actionCreators.js';
+import { addApiDetails } from '../redux/actionCreators.js';
 
 class Results extends Component {
   constructor(props) {
     super(props);
   }
+  componentWillMount() {}
   componentDidMount() {
-    this.props.getApiDetails;
+    this.props.fetchData(this.props.searchTerm);
     console.log('Results.props ', this.props);
   }
   render() {
@@ -17,13 +19,14 @@ class Results extends Component {
 
 // dispatch to redux
 const mapStateToProps = state => ({
-  searchTerm: state.searchTerm
+  searchTerm: state.searchTerm,
+  getApiDetails: state.getApiDetails
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  getApiData() {
-    dispatch(getApiDetails(ownProps.searchTerm, ownProps.location));
-  }
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: term => dispatch(getApiDetails(term))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

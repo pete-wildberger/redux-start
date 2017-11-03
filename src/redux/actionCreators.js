@@ -31,9 +31,14 @@ export function addApiData(apiData) {
   return { type: ADD_API_DATA, payload: apiData };
 }
 export function getApiDetails(language, location) {
+  var config = {
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3000'
+    }
+  };
   return dispatch => {
     axios
-      .get(`https://jobs.github.com/positions.json?description=${language}&lat=${location.lat}&long=${location.longi}`)
+      .get(`https://jobs.github.com/positions.json?description=${language}`, config)
       .then(response => {
         dispatch(addApiData(response.data));
       })
