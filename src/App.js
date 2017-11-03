@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './redux/store.js';
 import Landing from './components/Landing.jsx';
 import Results from './components/Results.jsx';
 import './styles/main.min.css';
@@ -13,7 +13,7 @@ const App = () => (
     <Provider store={store}>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/result" component={Results} />
+        <Route exact path="/results" component={Results} />
       </Switch>
     </Provider>
   </BrowserRouter>
