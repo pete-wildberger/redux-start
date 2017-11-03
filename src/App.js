@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store.js';
@@ -14,6 +14,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/results" component={Results} />
+        <Route component={FourOhFour} />
       </Switch>
     </Provider>
   </BrowserRouter>

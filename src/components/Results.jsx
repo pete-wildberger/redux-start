@@ -7,6 +7,7 @@ class Results extends Component {
     super(props);
   }
   componentDidMount() {
+    this.props.getApiDetails;
     console.log('Results.props ', this.props);
   }
   render() {

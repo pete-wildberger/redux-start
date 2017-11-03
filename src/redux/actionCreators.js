@@ -22,10 +22,10 @@ export function getLocation() {
       }
     );
   });
-  return {
+  return dispatch => ({
     type: SET_LOCATION,
     payload: location
-  };
+  });
 }
 export function addApiData(apiData) {
   return { type: ADD_API_DATA, payload: apiData };

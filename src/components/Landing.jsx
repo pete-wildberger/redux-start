@@ -12,6 +12,9 @@ class Landing extends Component {
     event.preventDefault();
     this.props.history.push('/results');
   };
+  componentWillMount() {
+    getLocation();
+  }
   componentDidMount() {
     console.log('Landing.props ', this.props);
   }
