@@ -28,6 +28,7 @@ export function getLocation() {
   });
 }
 export function addApiData(apiData) {
+  console.log('addapidata');
   return { type: ADD_API_DATA, payload: apiData };
 }
 export function getApiDetails(language) {
@@ -35,7 +36,8 @@ export function getApiDetails(language) {
     axios
       .get(`/jobs/${language}`)
       .then(response => {
-        dispatch(addApiData(response.data));
+        console.log('response ', response);
+        dispatch(addApiData(response.data.data));
       })
       .catch(err => {
         console.error('axios error ', err);

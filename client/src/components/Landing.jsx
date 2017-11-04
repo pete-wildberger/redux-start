@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getLocation } from '../redux/actionCreators.js';
 import { setSearchTerm } from '../redux/actionCreators';
+import { getApiDetails } from '../redux/actionCreators.js';
+import { addApiData } from '../redux/actionCreators.js';
 
 class Landing extends Component {
   constructor(props) {
@@ -10,6 +12,7 @@ class Landing extends Component {
   }
   goToSearch = event => {
     event.preventDefault();
+    this.props.fetchData(this.props.searchTerm);
     this.props.history.push('/results');
   };
   componentWillMount() {
@@ -40,10 +43,11 @@ const mapStateToProps = state => ({
   searchTerm: state.searchTerm
 });
 
-const mapDispatchToProps = dispatch => ({
-  handleSearchTermChange(event) {
-    dispatch(setSearchTerm(event.target.value), getLocation());
-  }
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: term => dispatch(getApiDetails(term)),
+    handleSearchTermChange: event => dispatch(setSearchTerm(event.target.value))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

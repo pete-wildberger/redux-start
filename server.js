@@ -14,7 +14,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.get('/jobs/:id', (req, res) => {
+app.get('/jobs/:id', (req, resp) => {
   let query = req.params.id;
   console.log('query ', query);
   // let config = {
@@ -25,14 +25,41 @@ app.get('/jobs/:id', (req, res) => {
   //   // }
   // };
   // console.log('config ', config);
-  http.get(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC`, (err, response) => {
-    if (err) {
-      console.log('err', err);
-    } else {
-      console.log('response ', typeof response);
-      res.send(response);
-    }
-  });
+  http
+    .get(`http://api.giphy.com/v1/gifs/search?q=${query}&api_key=dc6zaTOxFJmzC`, res => {
+      const { statusCode } = res;
+      const contentType = res.headers['content-type'];
+
+      let error;
+      if (statusCode !== 200) {
+        error = new Error('Request Failed.\n' + `Status Code: ${statusCode}`);
+      } else if (!/^application\/json/.test(contentType)) {
+        error = new Error('Invalid content-type.\n' + `Expected application/json but received ${contentType}`);
+      }
+      if (error) {
+        console.error(error.message);
+        // consume response data to free up memory
+        res.resume();
+        return;
+      }
+
+      res.setEncoding('utf8');
+      let rawData = '';
+      res.on('data', chunk => {
+        rawData += chunk;
+      });
+      res.on('end', () => {
+        try {
+          const parsedData = JSON.parse(rawData);
+          resp.send(parsedData);
+        } catch (e) {
+          console.error(e.message);
+        }
+      });
+    })
+    .on('error', e => {
+      console.error(`Got error: ${e.message}`);
+    });
 });
 app.get('/', (req, res) => {
   console.log('base url hit');
