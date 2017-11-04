@@ -33,7 +33,8 @@ class Results extends Component {
 // dispatch to redux
 const mapStateToProps = state => ({
   searchTerm: state.searchTerm,
-  apiData: state.apiData
+  apiData: state.apiData,
+  setLocation: state.setLocation
 });
 
 const mapDispatchToProps = dispatch => {

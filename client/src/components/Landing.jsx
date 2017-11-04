@@ -16,7 +16,7 @@ class Landing extends Component {
     this.props.history.push('/results');
   };
   componentWillMount() {
-    this.props.locationFinder();
+    this.props.getLocation();
   }
   componentDidMount() {
     console.log('Landing.props ', this.props);
@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchData: term => dispatch(getApiDetails(term)),
     handleSearchTermChange: event => dispatch(setSearchTerm(event.target.value)),
-    locationFinder: dispatch(getLocation())
+    getLocation: () => dispatch(getLocation())
   };
 };
 

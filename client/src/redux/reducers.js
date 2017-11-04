@@ -16,7 +16,7 @@ const setLocation = (state = {}, action: Action) => {
   console.log('setLocation', action.type, action.payload);
   if (action.type === SET_LOCATION) {
     console.log('location if');
-    return Object.assign({}, state, { [action.payload]: action.payload });
+    return Object.assign({}, state, { place: action.payload });
   }
   console.log('state ', state);
   return state;

@@ -9,23 +9,18 @@ export function setSearchTerm(searchTerm) {
 
 export function getLocation() {
   const geolocation = navigator.geolocation;
-  const place = new Promise((resolve, reject) => {
-    if (!geolocation) {
-      reject(new Error('Not Supported'));
-    }
-    geolocation.getCurrentPosition(
-      position => {
-        resolve(position);
-      },
-      () => {
-        reject(new Error('Permission denied'));
-      }
-    );
+  if (!geolocation) {
+    new Error('Not Supported');
+  }
+  const place = {};
+  geolocation.getCurrentPosition(position => {
+    place.latitude = position.coords.latitude;
+    place.longitude = position.coords.longitude;
   });
-  return dispatch => ({
+  return {
     type: SET_LOCATION,
     payload: place
-  });
+  };
 }
 export function addApiData(apiData) {
   return { type: ADD_API_DATA, payload: apiData };
