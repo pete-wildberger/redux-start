@@ -9,7 +9,7 @@ export function setSearchTerm(searchTerm) {
 
 export function getLocation() {
   const geolocation = navigator.geolocation;
-  const location = new Promise((resolve, reject) => {
+  const place = new Promise((resolve, reject) => {
     if (!geolocation) {
       reject(new Error('Not Supported'));
     }
@@ -24,11 +24,10 @@ export function getLocation() {
   });
   return dispatch => ({
     type: SET_LOCATION,
-    payload: location
+    payload: place
   });
 }
 export function addApiData(apiData) {
-  console.log('addapidata');
   return { type: ADD_API_DATA, payload: apiData };
 }
 export function getApiDetails(language) {
@@ -36,7 +35,6 @@ export function getApiDetails(language) {
     axios
       .get(`/jobs/${language}`)
       .then(response => {
-        console.log('response ', response);
         dispatch(addApiData(response.data.data));
       })
       .catch(err => {

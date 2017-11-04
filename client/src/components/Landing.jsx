@@ -16,7 +16,7 @@ class Landing extends Component {
     this.props.history.push('/results');
   };
   componentWillMount() {
-    getLocation();
+    this.props.locationFinder();
   }
   componentDidMount() {
     console.log('Landing.props ', this.props);
@@ -40,13 +40,15 @@ class Landing extends Component {
 
 // dispatch to redux
 const mapStateToProps = state => ({
-  searchTerm: state.searchTerm
+  searchTerm: state.searchTerm,
+  setLocation: state.setLocation
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchData: term => dispatch(getApiDetails(term)),
-    handleSearchTermChange: event => dispatch(setSearchTerm(event.target.value))
+    handleSearchTermChange: event => dispatch(setSearchTerm(event.target.value)),
+    locationFinder: dispatch(getLocation())
   };
 };
 

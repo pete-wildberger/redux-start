@@ -13,9 +13,10 @@ const searchTerm = (state = '', action: Action) => {
   return state;
 };
 const setLocation = (state = {}, action: Action) => {
-  console.log('location');
+  console.log('setLocation', action.type, action.payload);
   if (action.type === SET_LOCATION) {
-    return action.payload;
+    console.log('location if');
+    return Object.assign({}, state, { [action.payload]: action.payload });
   }
   console.log('state ', state);
   return state;
